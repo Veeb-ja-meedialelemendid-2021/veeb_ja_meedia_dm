@@ -1,0 +1,25 @@
+body {
+	background-color: LightSkyBlue;
+	color: #000000;
+	font-family: arial;
+	background-image: url("../../../../../media/pics/tlu_h200.png");
+	background-repeat: no-repeat;
+	background-position: 1300px 300px;
+	background-attachment: fixed;
+}
+
+h1, h2, h3 {
+	color: rgb(0,0,180);
+}
+
+section {
+	background-color: rgba(255,255,255,.5);
+	background-image: url("../../../../../media/pics/top_left_01_transparent.png"), url("../../../../../media/pics/bottom_right_01_transparent.png");
+	background-position: left top, bottom right;
+	background-repeat: no-repeat;
+	background-size: 50px;
+}
+
+nav {
+	background-color: hsl(240,80%,80%);
+}
