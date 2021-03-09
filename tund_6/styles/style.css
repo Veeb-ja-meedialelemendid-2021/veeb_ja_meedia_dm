@@ -128,7 +128,7 @@ nav {
 .truckarea {
 	width: 190px;
 	height: 100px;
-	animation: drive 10s linear infinite;
+	animation: drive 10s linear both paused;
 }
 
 .truck {
@@ -219,4 +219,9 @@ footer {
 @keyframes drive {
 	0% {transform: translate(-190px, 400px);}
 	100%{transform: translate(1350px, 400px);}
+}
+
+@keyframes driveback {
+	0% {transform: translate(1188px, 400px) scale(-1,1);}
+	100%{transform: translate(-330px, 400px) scale(-1,1);}
 }

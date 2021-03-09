@@ -22,6 +22,10 @@ function setButtons(){
 	document.getElementById("prevphoto").addEventListener("click", prevPhoto);
 	//panen foto opacity siirde lõppu kuulama    transitionstart     transitionend
 	document.getElementById("tlu_pic2").addEventListener("transitionend", enableButtons);
+	document.getElementById("animBtn").addEventListener("click", toggleAnim);
+	document.getElementById("stage").addEventListener("animationstart",animInfo);
+	document.getElementById("stage").addEventListener("animationend",animInfo);
+	document.getElementById("stage").addEventListener("animationiteration",animInfo);
 }
 
 function nextPhoto(){
@@ -85,4 +89,42 @@ function clockTick(){
 	document.getElementById("hourhand").style.transform = "rotate(" + hourangle + "deg)";
 	//setTimeout(1000,clockTick);
 	requestAnimationFrame(clockTick);
+}
+
+function toggleAnim(){
+	//console.log(document.getElementById("truckarea").style.animationPlayState);
+	let allitems = document.getElementById("stage").getElementsByTagName("*");
+	//console.log(allitems);
+	if(document.getElementById("animBtn").innerHTML == "Käivita animatsioon"){
+		document.getElementById("animBtn").innerHTML = "Peata animatsioon";
+		//document.getElementById("truckarea").style.animationPlayState = "running";
+		for(let i = 0; i < allitems.length; i ++){
+			allitems[i].style.animationPlayState = "running";
+		}
+	} else {
+		document.getElementById("animBtn").innerHTML = "Käivita animatsioon";
+		//document.getElementById("truckarea").style.animationPlayState = "paused";
+		for(let i = 0; i < allitems.length; i ++){
+			allitems[i].style.animationPlayState = "paused";
+		}
+	}
+}
+
+function animInfo(e){
+	if(e.type == "animationend"){
+		//console.log(e.animationName);
+		//console.log(e.target.id);
+		if(e.target.id == "truckarea"){
+			let animdelay = 1 + Math.round(Math.random() * 5);
+			let animduration = 8 + Math.round(Math.random() * 5);
+			e.target.style.animationDelay = animdelay + "s";
+			e.target.style.animationDuration = animduration + "s";
+			if(e.animationName == "drive"){
+				e.target.style.animationName = "driveback";
+				
+			} else {
+				e.target.style.animationName = "drive";
+			}
+		}
+	}
 }
