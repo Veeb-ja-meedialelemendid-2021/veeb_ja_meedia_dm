@@ -27,7 +27,7 @@ function clockTick(){
 	//ehk currenthour != prev_hour
 	//if(currentminute == 0 && currentsecond == 0 && currenttime.getMilliseconds() < 1000/60 && document.getElementById("allow_bell_btn").checked){
 		//loendur, mitu korda vaja lüüa
-	}
+	//}
 	//setTimeout(1000,clockTick);
 	requestAnimationFrame(clockTick);
 }
