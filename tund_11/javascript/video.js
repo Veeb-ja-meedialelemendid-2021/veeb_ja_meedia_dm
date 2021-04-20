@@ -36,6 +36,7 @@ function set_title(){
 	}
 	movie_title = movie.textTracks[title_num];
 	movie_title.mode = title_mode;
+	display_titles();
 }
 
 function display_titles(){

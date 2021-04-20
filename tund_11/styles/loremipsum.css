@@ -1,0 +1,117 @@
+body {
+	background-color: #DDFFDD;
+	font-family: verdana, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+main {
+	margin: 20px;
+	width: 80%;
+	
+	/*peatükkide loendur*/
+	/*counter-reset: chapter-counter;*/
+}
+
+h2 {
+	counter-increment: chapter-counter;
+}
+
+section {
+	border: 5px solid green;
+	counter-reset: subchapter;
+}
+
+h3 {
+	counter-increment: subchapter;
+}
+
+/*otsene sisaldumine*/
+section>img {
+	border: 4px solid #99FF99;
+}
+
+/*järgnevus*/
+figure+p, figure+p+p {
+	color: #009900;
+}
+
+h3+p+figure img {
+	border-radius: 20px;
+}
+
+h3~p {
+	text-indent: 1cm;
+}
+
+/*atribuutide järgi*/
+/*olemasolu*/
+[title] {
+	background-color: white;
+}
+
+/*täpne väärtus*/
+[title="selgitus"] {
+	font-weight: bold;
+}
+
+/*väärtus algab kindla fraasiga*/
+[id^="chapter"] {
+	background-color: rgba(255,255,255,0.4);
+}
+/*sisaldab fraas   *=      lõppeb fraasiga   $=     */
+
+:lang(en) {
+	font-style: oblique;
+}
+
+/*    a:link    a:hover     a:visited    a:active    */
+
+section:target {
+	background-color: #FFFFAA;
+}
+
+/*järjakorra lausel*/
+
+p:first-child {
+	font-weight: 900;
+	font-style: oblique;
+}
+
+/*last-child   p:first-of-type   p:last-of-type*/
+
+
+
+section:first-of-type {
+	border-radius: 20px 20px 0px 0px;
+}
+
+section:last-of-type {
+	border-radius: 0px 0px 20px 20px;
+}
+
+section:nth-of-type(2) {
+	background-color: #FAFAFA;
+	counter-reset: chapter-counter;
+	
+}
+
+section:nth-of-type(even) { /*odd*/
+	border-style: dotted;
+}
+
+h2::before {
+	content: url("http://greeny.cs.tlu.ee/~rinde/media/bullet/tlu_bullet.png") " Peatükk " counter(chapter-counter) " " open-quote;
+}
+
+section:first-of-type h2::before {
+	content: url("http://greeny.cs.tlu.ee/~rinde/media/bullet/tlu_bullet.png") " " open-quote;
+}
+
+h3::before {
+	content: "Alapeatükk " counter(chapter-counter) "." counter(subchapter) " " open-quote; 
+}
+
+h2::after, h3::after {
+	content: close-quote;
+}
