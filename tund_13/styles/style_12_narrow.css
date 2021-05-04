@@ -1,0 +1,26 @@
+body {
+	background: none;
+	background-color: LightSkyBlue;
+}
+
+main {
+	margin: 5px;
+}
+
+section {
+	background: none;
+	background-color: rgba(255,255,255,.5);
+	margin: 5px;
+	padding: 5px;
+	border: 2px dotted white;
+	overflow: auto;/*visible    hidden   scroll*//*overflow-x    overflow-y*/
+}
+
+
+.tlu_logo {
+	float: left;
+	margin-right: 10px;
+	transform-origin: 0px top; /*0% 0%   left top   0px 0px*/
+	/*top center bottom    left center right   0 - 100%    px*/
+	transform: scale(1);
+}
