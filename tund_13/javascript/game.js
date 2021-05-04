@@ -1,8 +1,19 @@
 let canvas;
 let ctx;
 let ball_list = [];
-let elements_limit = 15;
+let elements_limit = 10;
+let game_alphabet = [];
+let hit_count = 0;
 
+//täiendada mängu!
+//mänguelemendid värviliseks - juhuslikud värvid
+//lugeda ka valesid ja lausa mööda tehtud klikke!
+//Luua mängu alustamine ja lõpetamine koos võimalusega uuesti mängida
+//lisada heliklipid erinevate tabamuste jaoks, miks mitte ka mängu alguseks ja lõpuks. 
+//lisada taustamuusika (võimalusega seda mitte mängida)
+//lisada ajavõtt (fikseerida algushetk, lõpuhetk,  getTime() annab ajahetke millisekundites ja sellest saab arvutada minutid, sekundid jms).
+//lisada punktisüsteem
+//laske fantaasial lennata!
 
 window.onload = function(){
 	canvas = document.getElementById("canvas");
@@ -16,12 +27,21 @@ function init_game(){
 }
 
 function add_elements(){
+	let base_alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "Š", "Z", "Ž", "T", "U", "V", "W", "Õ", "Ä", "Ö", "Ü", "X", "Y"];
+	//loosime soovitud arvu tähti
+	game_alphabet = base_alphabet.slice(0);
+	while(game_alphabet.length > elements_limit){
+		let one_to_remove = Math.round(Math.random() * (game_alphabet.length - 1));
+		game_alphabet.splice(one_to_remove, 1);
+	}
+	console.log(game_alphabet);
 	let x = canvas.width / 2;
 	let y = canvas.height / 2;
 	//let r = 15;
 	for(let i = 0; i < elements_limit; i ++){
 		let r = 15 + Math.round(Math.random() * 15);
-		ball_list.push(new Game_ball(x,y,r));
+		let symbol = game_alphabet[game_alphabet.length - 1 - i];
+		ball_list.push(new Game_ball(x,y,r,symbol));
 	}
 	//move_1();
 	//ball = new Game_ball(x,y,r);
@@ -30,7 +50,7 @@ function add_elements(){
 
 function move_elements(){
 	canvas.width = canvas.width;
-	ctx.fillStyle = "#FFCC00";
+	
 	//ball.move_self();
 	//ball.draw_self();
 	for(let i = 0; i < ball_list.length; i ++){
@@ -47,9 +67,12 @@ function check_hits(e){
 	let m_y = e.clientY - canvas.offsetTop + window.scrollY;
 	for(let i = 0; i < ball_list.length; i ++){
 		if(ball_list[i].was_hit(m_x, m_y)){
-			//eemaldan selle elemendi
-			ball_list.splice(i, 1);
-			break;
+			if(ball_list[i].symbol == game_alphabet[hit_count]){
+				//eemaldan selle elemendi
+				ball_list.splice(i, 1);
+				hit_count ++;
+				break;
+			}
 		}
 	}
 }
@@ -59,10 +82,11 @@ function pythagoras(b_x, b_y, m_x, m_y){
 }
 
 class Game_ball{
-	constructor(x,y,r){
+	constructor(x,y,r,symbol){
 		this.x = x;
 		this.y = y; 
 		this.r = r;
+		this.symbol = symbol;
 		this.speed_x = 0;
 		this.speed_y = 0;
 		this.set_speed();
@@ -70,10 +94,18 @@ class Game_ball{
 	}
 	
 	draw_self(){
+		ctx.fillStyle = "#FFCC00";
 		ctx.beginPath();
 			ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
 			ctx.fill();
 		ctx.closePath();
+		//lisame tähe
+		ctx.fillStyle = "#FFFFFF";
+		//"bold 24px Verdana"
+		ctx.font = "bold " + Math.round(this.r * 1.4) + "px Verdana";
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		ctx.fillText(this.symbol, this.x, this.y);
 	}
 	
 	set_speed(){
